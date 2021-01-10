@@ -57,7 +57,7 @@ namespace GerenciadorDividasCore.Controllers
             {
                 return BadRequest(ModelState); //400
             }
-            var item = _service.Edit(value);
+            _service.Edit(value);
             return Ok();
         }
 

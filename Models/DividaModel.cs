@@ -5,10 +5,11 @@ namespace GerenciadorDividasCore.Models
 {
     public class Divida
     {
-        public Guid Id { get; set; }
         [Required]
-        public string Name { get; set; }
-        public decimal Price { get; set; }
-        public string Manufacturer { get; set; }
+        public Guid Id { get; set; }
+        public Guid ClienteId { get; set; }
+        public string Motivo { get; set; }
+        public float Valor { get; set; }
+        public DateTime Data { get; set; }
     }
 }
