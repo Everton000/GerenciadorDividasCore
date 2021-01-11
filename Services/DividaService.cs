@@ -7,6 +7,7 @@ namespace GerenciadorDividasCore.Services
     public interface ISDividaService
     {
         IEnumerable<Divida> GetAllItems();
+        IEnumerable<Divida> GetAllItems(int clienteId);
         Divida GetById(Guid id);
         Divida Add(Divida newItem);
         void Edit(Divida editItem);
@@ -17,6 +18,10 @@ namespace GerenciadorDividasCore.Services
     {
         
         public IEnumerable<Divida> GetAllItems()
+        {
+            throw new NotImplementedException();
+        }
+        public IEnumerable<Divida> GetAllItems(int clienteId)
         {
             throw new NotImplementedException();
         }

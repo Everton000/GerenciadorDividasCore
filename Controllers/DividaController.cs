@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 using GerenciadorDividasCore.Models;
 using GerenciadorDividasCore.Services;
-using Microsoft.AspNetCore.Mvc;
 
 namespace GerenciadorDividasCore.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/dividas")]
     [ApiController]
     public class DividaController : ControllerBase
     {
@@ -22,6 +22,14 @@ namespace GerenciadorDividasCore.Controllers
         public ActionResult<IEnumerable<Divida>> Get()
         {
             var items = _service.GetAllItems();
+            return Ok(items); //200
+        }
+
+        // GET api/divida?clienteId=3
+        [HttpGet()]
+        public ActionResult<IEnumerable<Divida>> Get([FromQuery] int clienteId)
+        {
+            var items = _service.GetAllItems(clienteId);
             return Ok(items); //200
         }
 
