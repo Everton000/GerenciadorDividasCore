@@ -1,45 +1,88 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using GerenciadorDividasCore.Models;
 
 namespace GerenciadorDividasCore.Services
 {
     public interface ISDividaService
     {
-        IEnumerable<Divida> GetAllItems();
-        IEnumerable<Divida> GetAllItems(int clienteId);
-        Divida GetById(Guid id);
-        Divida Add(Divida newItem);
+        IList<Divida> GetAllDividas();
+        IList<Divida> GetByCliente(int clienteId);
+        Divida GetById(int id);
+        Divida Add(Divida divida);
         void Edit(Divida editItem);
-        void Remove(Guid id);
+        void Remove(int id);
     }
 
     public class DividaService : ISDividaService
     {
+        private readonly GerenciadorDividasContext _context;
         
-        public IEnumerable<Divida> GetAllItems()
+        public DividaService(GerenciadorDividasContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
-        public IEnumerable<Divida> GetAllItems(int clienteId)
+
+        public IList<Divida> GetAllDividas()
         {
-            throw new NotImplementedException();
+            return _context.Dividas
+                .Where(d => d.DataExclusao == null)
+                .ToList();
         }
-        public Divida GetById(Guid id)
+
+        public IList<Divida> GetByCliente(int clienteId)
         {
-            throw new NotImplementedException();
+            return _context.Dividas
+                .Where(d => d.ClienteId == clienteId &&
+                    d.DataExclusao == null)
+                .ToList();
         }
-        public Divida Add(Divida newItem)
+
+        public Divida GetById(int id)
         {
-            throw new NotImplementedException();
+            return _context.Dividas
+                .Where(d => d.Id == id &&
+                    d.DataExclusao == null)
+                .FirstOrDefault();
         }
-        public void Edit(Divida newItem)
+
+        public Divida Add(Divida divida)
         {
-            throw new NotImplementedException();
+            _context.Dividas.Add(divida);
+            _context.SaveChanges();
+
+            return divida;
         }
-        public void Remove(Guid id)
+
+        public void Edit(Divida divida)
         {
-            throw new NotImplementedException();
+            _context.Dividas.Update(divida);
+            _context.SaveChanges();
         }
+
+        // method set datetime exclusao
+        public void Remove(int id)
+        {
+            Divida divida = _context.Dividas
+                .Where(d => d.Id == id)
+                .FirstOrDefault();
+
+            divida.DataExclusao = DateTime.Now;
+            
+            _context.Dividas.Update(divida);
+            _context.SaveChanges();
+        }
+        
+        // method remove
+        /* public void Remove(int id)
+        {
+            Divida divida = _context.Dividas
+                .Where(d => d.Id == id)
+                .FirstOrDefault();
+            
+            _context.Remove(divida);
+            _context.SaveChanges();
+        } */
     }
 }

@@ -8,7 +8,7 @@ namespace GerenciadorDividasCore.Services
 {
     public interface ISClienteService
     {
-        Task<IEnumerable<Cliente>> GetClientesAsync();
+        Task<IList<Cliente>> GetClientesAsync();
     }
 
     public class ClienteService : ISClienteService
@@ -20,7 +20,7 @@ namespace GerenciadorDividasCore.Services
             _api = api;
         }
 
-        public async Task<IEnumerable<Cliente>> GetClientesAsync()
+        public async Task<IList<Cliente>> GetClientesAsync()
         {
             return await _api.GetClientesAsync();
         }

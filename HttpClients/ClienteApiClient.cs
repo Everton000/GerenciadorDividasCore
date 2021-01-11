@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text.Json;
@@ -16,12 +15,12 @@ namespace GerenciadorDividasCore.HttpClients
             _httpClient = httpClient;
         }
 
-        public async Task<IEnumerable<Cliente>> GetClientesAsync()
+        public async Task<IList<Cliente>> GetClientesAsync()
         {
             HttpResponseMessage resposta = await _httpClient.GetAsync("users");
             resposta.EnsureSuccessStatusCode();
 
-            return await JsonSerializer.DeserializeAsync<IEnumerable<Cliente>>(
+            return await JsonSerializer.DeserializeAsync<IList<Cliente>>(
                 await resposta.Content.ReadAsStreamAsync());
         }
     }

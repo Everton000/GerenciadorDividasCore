@@ -1,17 +1,14 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Microsoft.EntityFrameworkCore;
 using GerenciadorDividasCore.HttpClients;
 using GerenciadorDividasCore.Services;
+using GerenciadorDividasCore.Models;
 
 namespace GerenciadorDividasCore
 {
@@ -37,6 +34,10 @@ namespace GerenciadorDividasCore
             services.AddControllersWithViews()
                 .AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
+
+            services.AddDbContext<GerenciadorDividasContext>(options =>
+                options.UseSqlServer("Server=LOCALHOST;Database=GerenciadorDividas;Trusted_Connection=true;")
             );
 
             services.AddControllers();

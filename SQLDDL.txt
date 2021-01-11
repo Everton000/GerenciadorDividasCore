@@ -1,0 +1,16 @@
+CREATE DATABASE [GerenciadorDividas]
+
+USE [GerenciadorDividas]
+GO
+/****** Object:  Table [dbo].[Dividas]    Script Date: 11/01/2021 05:20:16 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Dividas](
+	[Id] [int] NOT NULL,
+	[ClienteId] [int] NOT NULL,
+	[Motivo] [varchar](50) NOT NULL,
+	[Valor] [decimal](18, 2) NOT NULL,
+	[Data] [datetime] NOT NULL,
+	[DataExclusao] [datetime] NULL)

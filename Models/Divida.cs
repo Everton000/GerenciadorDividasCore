@@ -5,15 +5,16 @@ namespace GerenciadorDividasCore.Models
 {
     public class Divida
     {
+        [Key]
+        public int? Id { get; set; }
         [Required]
-        public Guid Id { get; set; }
-        [Required]
-        public Guid ClienteId { get; set; }
+        public int ClienteId { get; set; }
         [Required]
         public string Motivo { get; set; }
         [Required]
-        public float Valor { get; set; }
+        public decimal Valor { get; set; }
         [Required]
         public DateTime Data { get; set; }
+        public DateTime? DataExclusao { get; set; }
     }
 }
